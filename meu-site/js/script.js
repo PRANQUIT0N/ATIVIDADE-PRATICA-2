@@ -1,62 +1,45 @@
-document.addEventListener("DOMContentLoaded", function () {
-  // Tooltips
-  const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-  tooltipTriggerList.forEach(el => new bootstrap.Tooltip(el));
+document.addEventListener('DOMContentLoaded', () => {
+    const formPost = document.getElementById('formPost');
+    const areaPosts = document.getElementById('areaPosts');
 
-  // Modo escuro
-  const btnModo = document.getElementById("btnModo");
-  btnModo.addEventListener("click", function () {
-    document.body.classList.toggle("dark");
-    if (document.body.classList.contains("dark")) {
-      btnModo.classList.replace("bi-moon-stars-fill", "bi-sun-fill");
-      btnModo.setAttribute("data-bs-title", "Modo Claro");
-    } else {
-      btnModo.classList.replace("bi-sun-fill", "bi-moon-stars-fill");
-      btnModo.setAttribute("data-bs-title", "Modo Escuro");
-    }
-    bootstrap.Tooltip.getInstance(btnModo)?.dispose();
-    new bootstrap.Tooltip(btnModo);
-  });
+    formPost.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const campo = formPost.querySelector('input');
+        const valor = campo.value.trim();
 
-  // Cliques gerais
-  document.addEventListener("click", function (e) {
-    // Curtir
-    if (e.target.closest(".curtir")) {
-      const botao = e.target.closest(".curtir");
-      const icone = botao.querySelector("i");
-      const contador = botao.querySelector(".contador");
-      let numero = parseInt(contador.textContent);
-      if (icone.classList.contains("bi-hand-thumbs-up")) {
-        icone.classList.replace("bi-hand-thumbs-up", "bi-hand-thumbs-up-fill");
-        botao.classList.replace("btn-outline-primary", "btn-primary");
-        contador.textContent = numero + 1;
-      } else {
-        icone.classList.replace("bi-hand-thumbs-up-fill", "bi-hand-thumbs-up");
-        botao.classList.replace("btn-primary", "btn-outline-primary");
-        contador.textContent = numero - 1;
-      }
-    }
+        if (valor === "") {
+            alert("Digite algo para postar!");
+            return;
+        }
 
-    // Mostrar comentario
-    if (e.target.closest(".comentar")) {
-      const post = e.target.closest(".post");
-      const area = post.querySelector(".comentarios");
-      area.classList.toggle("d-none");
-    }
+        // Usa os dados que vieram do PHP (USUARIO_LOGADO)
+        const template = `
+            <div class="post card p-3 mb-3">
+                <div class="d-flex align-items-center mb-2">
+                    <img src="${USUARIO_LOGADO.foto}" class="fotopost me-2">
+                    <div>
+                        <label class="nome">${USUARIO_LOGADO.nome}</label>
+                        <br>
+                        <small class="text-muted">${USUARIO_LOGADO.usuario}</small>
+                    </div>
+                </div>
+                <label class="conteudo-post">${valor}</label>
+                <div class="mt-2">
+                    <button class="btn btn-sm btn-outline-primary curtir">
+                        <i class="bi bi-hand-thumbs-up"></i> <span>Curtir</span> <span class="contador">0</span>
+                    </button>
+                </div>
+            </div>`;
 
-    // Enviar comentario
-    if (e.target.closest(".enviar")) {
-      const post = e.target.closest(".post");
-      const input = post.querySelector(".comentarioInput");
-      const lista = post.querySelector(".comentarios");
+        areaPosts.insertAdjacentHTML('afterbegin', template);
+        campo.value = "";
+    });
 
-      if (input.value.trim() === "") return;
-
-      const novo = document.createElement("div");
-      novo.classList.add("comentario");
-      novo.innerHTML = `<small><strong>Eduardo:</strong> ${input.value}</small>`;
-      lista.appendChild(novo);
-      input.value = "";
-    }
-  });
+    areaPosts.addEventListener('click', (e) => {
+        const btn = e.target.closest('.curtir');
+        if (btn) {
+            const span = btn.querySelector('.contador');
+            span.innerText = parseInt(span.innerText) + 1;
+        }
+    });
 });
