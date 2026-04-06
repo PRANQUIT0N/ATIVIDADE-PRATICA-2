@@ -1,0 +1,151 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #e9ecef;
+}
+
+
+
+
+
+.menu {
+  width: 90px;
+  height: 100vh;
+  background: linear-gradient(180deg, #ff0055 0%, #160007 100%);
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 40px;
+  gap: 40px;
+  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+}
+
+
+.nav-btn {
+  background: none;
+  border: none;
+  color: #a9b1d6;
+  font-size: 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+
+.nav-btn span {
+  display: none;
+}
+
+.nav-btn:hover {
+  color: #7aa2f7; 
+  transform: scale(1.15); 
+  text-shadow: 0 0 10px rgba(122, 162, 247, 0.4); 
+}
+
+
+
+
+.conteudo {
+  margin-left: 110px; 
+  padding: 30px;
+  max-width: 800px;
+  margin-right: auto;
+}
+
+.card {
+  border: none !important;
+  border-radius: 16px !important; 
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04) !important; 
+  transition: transform 0.2s ease;
+}
+
+
+.foto {
+  width: 85px;
+  height: 85px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #7aa2f7;
+  padding: 3px; 
+}
+
+.nome {
+  display: block;
+  font-weight: 800;
+  font-size: 17px;
+  color: #2b2d42;
+}
+
+.usuario {
+  display: block;
+  font-size: 14px;
+  color: #8d99ae;
+  font-weight: 500;
+}
+
+.post:hover {
+  transform: translateY(-3px);
+}
+
+.fotopost {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e2e8f0; 
+}
+
+.conteudo-post {
+  display: block;
+  margin-top: 12px;
+  font-size: 15.5px;
+  color: #4a4e69; 
+  line-height: 1.5;
+}
+
+
+.comentarios {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px dashed #e2e8f0;
+}
+
+.comentarioInput {
+  border: 1px solid #cbd5e1;
+  border-radius: 20px !important;
+  padding-left: 15px;
+}
+
+.comentarioInput:focus {
+  border-color: #7aa2f7;
+  box-shadow: 0 0 0 0.2rem rgba(122, 162, 247, 0.25);
+  outline: none;
+}
+
+@media (max-width: 992px) {
+  .menu {
+    width: 100%;
+    height: 75px;
+    flex-direction: row;
+    justify-content: space-around;
+    bottom: 0;
+    top: auto;
+    padding-top: 0;
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1); 
+  }
+
+  .conteudo {
+    margin-left: auto; 
+    margin-bottom: 90px; 
+    padding: 15px;
+  }
+}
